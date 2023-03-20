@@ -80,7 +80,7 @@ while client.is_alive():
         client.flag_invalid_data()
         continue
     
-    # This becomes input for workers operating at the next stage, "d".
+    # This becomes input for workers operating at the next stage, "c".
     output = {"file": "s3://job_12345.tar", "total_scraped": 123}
 
     client.complete_job(output)
