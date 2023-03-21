@@ -12,7 +12,7 @@ def log(message) -> None:
     logging.info(message)
 
 def verbose_log(message) -> None:
-    print(message)
+    print(f"[distcompute-client] - {message}")
 
 # The main client instance.
 class Client(object):
