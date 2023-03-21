@@ -64,7 +64,7 @@ class Client(object):
             self.log_fn(f"{self.project} - connected to tracker server")
             self.log_fn(f"{self.project} - worker name: {self.display_name}")
             self.log_fn(f"{self.project} - you can view this worker's progress at the following url:")
-            self.log_fn(f"{self.project} - {self.url}/worker/{self.stage_name}/{self.display_name}")
+            self.log_fn(f"{self.project} - {self.url}/worker/{self.stage_name.lower()}/{self.display_name}")
     
     def _request(self, method: str, endpoint: str, **kwargs) -> Response:
         try:
