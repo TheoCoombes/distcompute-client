@@ -68,7 +68,7 @@ while client.is_alive():
     
     client.new_job()
     job_data = client.job # Could be a str/list/dict, depending on what is set by the tracker for stage A, or worker scripts for later stages.
-    job_id = client.job_number
+    job_id = client.job_id
     
     while doing_work:
         # ... process data
@@ -119,7 +119,7 @@ Removes the worker instance from the server, re-opening any pending jobs.
 ### Client.job: Union[str, list, dict]
 Input data to be processed by the worker. Could be a str/list/dict, depending on what is set by the tracker for stage A, or worker scripts for later stages.
 
-### Client.job_number: int
+### Client.job_id: int
 The job ID set by the tracker, as an incrementing integer (job #1 = 1). Useful when naming/storing files related to each job.
 
 ### Client.display_name: str
