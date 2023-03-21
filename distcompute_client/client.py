@@ -155,7 +155,7 @@ class Client(object):
         
         
         if self.verbose:
-            log(f"{self.project} - marked job as complete")
+            self.log_fn(f"{self.project} - marked job as complete")
 
     # Logs the progress string to the tracker.
     def log(self, progress: str, _err: bool = False) -> None:
