@@ -60,7 +60,7 @@ class Client(object):
     
     def _request(self, method: str, endpoint: str, **kwargs) -> Response:
         try:
-            return self.s.request(method, endpoint, **kwargs)
+            return self.s.request(method, self.url + endpoint, **kwargs)
         except Exception as e:
             if self.verbose:
                 log(f"{self.project} - retrying request after {e} error...")
