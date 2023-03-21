@@ -45,7 +45,7 @@ class Client(object):
         self.stage_name = data["stage_name"]
         
         self.job = None
-        self.job_number = None
+        self.job_id = None
         
         if self.verbose:
             log(f"{self.project} - connected to tracker server")
@@ -111,13 +111,13 @@ class Client(object):
         
         data = r.json()
         self.job = data["data"]
-        self.job_number = data["number"]
+        self.job_id = data["number"]
 
         if self.job.startswith("<!json!>"):
             self.job = json.loads(self.job[8:])
             
         if self.verbose:
-            log(f"{self.project} - recieved new job #{self.job_number}")
+            log(f"{self.project} - recieved new job #{self.job_id}")
 
     # Marks a job as completed/done.
     def complete_job(self, data: Union[str, list, dict]) -> None:
@@ -133,7 +133,7 @@ class Client(object):
 
         r = self._request("POST", "/api/completeJob", json=body)
         self.job = None
-        self.job_number = None
+        self.job_id = None
         
         err = self._handle_exceptions(r)
         if err:
@@ -185,7 +185,7 @@ class Client(object):
 
         r = self._request("POST", "/api/flagInvalidData", json=body)
         self.job = None
-        self.job_number = None
+        self.job_id = None
 
         err = self._handle_exceptions(r)
         if err:
@@ -200,7 +200,7 @@ class Client(object):
 
         self._request("POST", "/api/bye", json=body)
         self.job = None
-        self.job_number = None
+        self.job_id = None
 
         # No need for error checking as client may already be disconnected.
 
