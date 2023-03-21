@@ -11,6 +11,9 @@ logging.basicConfig(format="[distcompute-client] %(asctime)s - %(message)s", dat
 def log(message) -> None:
     logging.info(message)
 
+def verbose_log(message) -> None:
+    print(message)
+
 # The main client instance.
 class Client(object):
     def __init__(self, url: str, stage: str, nickname: str, verbose: bool = True) -> None:
@@ -27,9 +30,14 @@ class Client(object):
         self.project = "N/A"
         self.display_name = "N/A"
         self.stage_name = "N/A"
+        
+        if self.verbose:
+            self.log_fn = verbose_log
+        else:
+            self.log_fn = log
 
         if self.verbose:
-            log("connecting to tracker...")
+            self.log_fn("connecting to tracker...")
         
         params = {
             "nickname": self.nickname,
@@ -53,17 +61,17 @@ class Client(object):
         self.job_id = None
         
         if self.verbose:
-            log(f"{self.project} - connected to tracker server")
-            log(f"{self.project} - worker name: {self.display_name}")
-            log(f"{self.project} - you can view this worker's progress at the following url:")
-            log(f"{self.project} - {self.url}/worker/{self.stage_name}/{self.display_name}")
+            self.log_fn(f"{self.project} - connected to tracker server")
+            self.log_fn(f"{self.project} - worker name: {self.display_name}")
+            self.log_fn(f"{self.project} - you can view this worker's progress at the following url:")
+            self.log_fn(f"{self.project} - {self.url}/worker/{self.stage_name}/{self.display_name}")
     
     def _request(self, method: str, endpoint: str, **kwargs) -> Response:
         try:
             return self.s.request(method, self.url + endpoint, **kwargs)
         except Exception as e:
             if self.verbose:
-                log(f"{self.project} - retrying request after {e} error...")
+                self.log_fn(f"{self.project} - retrying request after {e} error...")
             sleep(15)
             return self._request(method, endpoint, **kwargs)
 
@@ -95,13 +103,13 @@ class Client(object):
         count = int(r.text)
         
         if self.verbose:
-            log(f"{self.project} - jobs remaining: {count}")
+            self.log_fn(f"{self.project} - jobs remaining: {count}")
 
         return count
     
     # Makes the node send a request to the tracker, asking for a new job.
     def new_job(self) -> None:
-        log(f"{self.project} - looking for new job...")
+        self.log_fn(f"{self.project} - looking for new job...")
 
         body = {
             "token": self.token
@@ -122,7 +130,7 @@ class Client(object):
             self.job = json.loads(self.job[8:])
             
         if self.verbose:
-            log(f"{self.project} - recieved new job #{self.job_id}")
+            self.log_fn(f"{self.project} - recieved new job #{self.job_id}")
 
     # Marks a job as completed/done.
     def complete_job(self, data: Union[str, list, dict]) -> None:
@@ -164,7 +172,7 @@ class Client(object):
             raise err
         
         if self.verbose and not _err:
-            log(f"{self.project} - logged new progress data: {progress}")
+            self.log_fn(f"{self.project} - logged new progress data: {progress}")
     
     
     # Returns True if the worker is still alive (not timed out), otherwise returns False.
@@ -210,7 +218,7 @@ class Client(object):
         # No need for error checking as client may already be disconnected.
 
         if self.verbose:
-            log(f"{self.project} - closed worker")
+            self.log_fn(f"{self.project} - closed worker")
 
 
 # Creates and returns a new client instance.
