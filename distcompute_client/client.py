@@ -22,6 +22,11 @@ class Client(object):
         self.stage = stage
         self.nickname = nickname
         self.verbose = verbose
+        
+        self.token = None
+        self.project = "N/A"
+        self.display_name = "N/A"
+        self.stage_name = "N/A"
 
         if self.verbose:
             log("connecting to tracker...")
