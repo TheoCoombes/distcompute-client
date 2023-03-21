@@ -62,6 +62,7 @@ class Client(object):
         
         if self.verbose:
             self.log_fn(f"{self.project} - connected to tracker server")
+            self.log_fn(f"{self.project} - joined project: {self.project}")
             self.log_fn(f"{self.project} - worker name: {self.display_name}")
             self.log_fn(f"{self.project} - you can view this worker's progress at the following url:")
             self.log_fn(f"{self.project} - {self.url}/worker/{self.stage_name.lower()}/{self.display_name}")
