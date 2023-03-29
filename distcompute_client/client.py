@@ -73,7 +73,7 @@ class Client(object):
         except Exception as e:
             if self.verbose:
                 self.log_fn(f"{self.project} - retrying request after {e} error...")
-            sleep(15)
+            sleep(2.5)
             return self._request(method, endpoint, **kwargs)
 
     def _handle_exceptions(self, r: Response) -> Union[Exception, None]:
