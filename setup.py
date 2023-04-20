@@ -20,7 +20,7 @@ if __name__ == "__main__":
         package_data={'': ['*.jar', '*.gz', '*.mdb']},
         version="1.0.0",
         license="MIT",
-        description="Using pretrained encoder and language models to generate captions from multimedia inputs.",
+        description="A multi-stage distributed compute tracker and job manager.",
         long_description=long_description,
         long_description_content_type="text/markdown",
         author="Theo Coombes",
