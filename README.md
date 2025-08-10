@@ -12,6 +12,8 @@
 Client library for the tracker previously powering LAION's distributed compute network for filtering commoncrawl with CLIP to produce the LAION-400M and LAION-5B datasets. The previous code has now repurposed as a general-use multi-layer distributed compute tracker and job manager, with added support for a frontend web server dashboard, user leaderboards and up to 5 sequential stages of workers for each job.
 * Tracker Server Repo: [TheoCoombes/distcompute-tracker](https://github.com/TheoCoombes/distcompute-tracker)
 * LAION-5B Paper: [https://arxiv.org/abs/2210.08402](https://arxiv.org/abs/2210.08402)
+* LAION-5B Implementation (Client): [TheoCoombes/crawlingathome](https://github.com/TheoCoombes/crawlingathome)
+* LAION-5B Implementation (Server): [TheoCoombes/crawlingathome-server](https://github.com/TheoCoombes/crawlingathome-server)
 
 # Prerequisites
 * Python >= 3.7
